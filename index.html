@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NoirScript</title>
+
+<style>
+:root{
+  --bg:#0b0911;
+  --header:#100c18;
+  --card:#15111f;
+  --card2:#1b1526;
+  --purple:#9b6cff;
+  --purple2:#b78cff;
+  --text:#f7f3ff;
+  --muted:#93899f;
+  --border:#2b2238;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  height:54px;
+  padding:0 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:var(--header);
+  border-bottom:1px solid var(--border);
+
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.logo{
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:-.3px;
+}
+
+.logo span{
+  color:var(--purple2);
+}
+
+.menu-wrap{
+  position:relative;
+}
+
+.menu-btn{
+  width:34px;
+  height:32px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0;
+
+  background:#15101e;
+  border:1px solid var(--border);
+
+  color:white;
+
+  border-radius:8px;
+
+  font-size:21px;
+  line-height:1;
+}
+
+.menu-btn:active{
+  transform:scale(.96);
+}
+
+.dropdown{
+  display:none;
+
+  position:absolute;
+  right:0;
+  top:40px;
+
+  width:175px;
+
+  padding:6px;
+
+  background:#181321;
+
+  border:1px solid var(--border);
+  border-radius:10px;
+
+  box-shadow:0 12px 30px #000b;
+}
+
+.dropdown.show{
+  display:block;
+}
+
+.dropdown button{
+  width:100%;
+
+  padding:10px 11px;
+
+  text-align:left;
+
+  color:var(--text);
+
+  background:transparent;
+  border:0;
+
+  border-radius:7px;
+
+  font-size:13px;
+}
+
+.dropdown button:hover,
+.dropdown button:active{
+  background:var(--card2);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+  width:100%;
+  max-width:900px;
+
+  margin:0 auto;
+
+  padding:15px 14px 35px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-wrap{
+  margin-bottom:17px;
+}
+
+.search-wrap input{
+  width:100%;
+  height:42px;
+
+  padding:0 13px;
+
+  background:#14101c;
+
+  color:white;
+
+  border:1px solid var(--border);
+
+  border-radius:9px;
+
+  outline:none;
+
+  font-size:13px;
+}
+
+.search-wrap input::placeholder{
+  color:#756c80;
+}
+
+.search-wrap input:focus{
+  border-color:#704ca8;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title{
+  margin:0 0 11px;
+
+  font-size:17px;
+  font-weight:750;
+
+  letter-spacing:-.2px;
+}
+
+/* =========================
+   SCRIPT GRID
+========================= */
+
+.script-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:9px;
+}
+
+/* =========================
+   SCRIPT CARD
+========================= */
+
+.script-card{
+  min-width:0;
+
+  display:flex;
+  flex-direction:column;
+
+  padding:8px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #191421,
+      #120f18
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:10px;
+
+  transition:
+    transform .15s,
+    border-color .15s;
+}
+
+.script-card:active{
+  transform:scale(.985);
+}
+
+.script-card:hover{
+  border-color:#5b3c82;
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.script-image{
+  width:100%;
+  height:86px;
+
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  margin-bottom:8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #241a35,
+      #17111f
+    );
+
+  border:1px solid #30243e;
+
+  border-radius:8px;
+}
+
+.script-image img{
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+
+  border-radius:7px;
+}
+
+.script-image-placeholder{
+  padding:8px;
+
+  color:#b991ff;
+
+  font-size:17px;
+  font-weight:700;
+
+  text-align:center;
+
+  line-height:1.15;
+
+  word-break:break-word;
+}
+
+/* =========================
+   SCRIPT NAME
+========================= */
+
+.script-name{
+  min-height:18px;
+
+  color:#eee7f7;
+
+  font-size:12px;
+  font-weight:700;
+
+  line-height:1.3;
+
+  overflow-wrap:anywhere;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.script-sub{
+  min-height:30px;
+
+  margin-top:4px;
+
+  color:#83798e;
+
+  font-size:10px;
+
+  line-height:1.45;
+
+  overflow:hidden;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.open-btn{
+  width:100%;
+
+  margin-top:7px;
+
+  padding:8px 6px;
+
+  border:0;
+
+  border-radius:7px;
+
+  background:var(--purple);
+
+  color:white;
+
+  font-size:11px;
+  font-weight:700;
+}
+
+.open-btn:active{
+  transform:scale(.98);
+}
+
+.open-btn:hover{
+  filter:brightness(1.1);
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+.back-btn{
+  margin-bottom:13px;
+
+  padding:8px 11px;
+
+  background:var(--card2);
+
+  color:white;
+
+  border:1px solid var(--border);
+
+  border-radius:8px;
+
+  font-size:12px;
+}
+
+.detail-box{
+  padding:14px;
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:11px;
+}
+
+.detail-box h2{
+  margin:0 0 13px;
+
+  font-size:20px;
+}
+
+/* =========================
+   DETAIL DESCRIPTION
+========================= */
+
+.detail-description{
+  padding:12px;
+
+  margin-bottom:14px;
+
+  background:#100c18;
+
+  border:1px solid var(--border);
+
+  border-radius:8px;
+}
+
+.detail-description-title{
+  margin-bottom:5px;
+
+  color:var(--purple2);
+
+  font-size:10px;
+  font-weight:700;
+
+  text-transform:uppercase;
+}
+
+.detail-description-text{
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.55;
+}
+
+/* =========================
+   CODE
+========================= */
+
+.code-label{
+  margin-bottom:6px;
+
+  color:var(--purple2);
+
+  font-size:10px;
+  font-weight:700;
+}
+
+.code-area{
+  width:100%;
+  min-height:170px;
+
+  padding:11px;
+
+  resize:vertical;
+
+  background:#08070d;
+
+  color:#cdb5f7;
+
+  border:1px solid var(--border);
+
+  border-radius:8px;
+
+  outline:none;
+
+  font-family:monospace;
+  font-size:12px;
+
+  line-height:1.5;
+}
+
+.primary-btn{
+  width:100%;
+
+  margin-top:10px;
+
+  padding:9px;
+
+  border:0;
+
+  border-radius:8px;
+
+  background:var(--purple);
+
+  color:white;
+
+  font-size:12px;
+  font-weight:700;
+}
+
+.primary-btn:active{
+  transform:scale(.99);
+}
+
+.muted{
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.5;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-box{
+  padding:22px 15px;
+
+  text-align:center;
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:11px;
+}
+
+.contact-icon{
+  width:54px;
+  height:54px;
+
+  margin:0 auto 13px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#211930;
+
+  border-radius:15px;
+
+  color:#c4a3ff;
+
+  font-size:24px;
+}
+
+.contact-box h2{
+  margin:0 0 7px;
+
+  font-size:19px;
+}
+
+.contact-box p{
+  margin:0;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.55;
+}
+
+.whatsapp-btn{
+  display:block;
+
+  margin-top:17px;
+
+  padding:10px;
+
+  background:#25a56a;
+
+  color:white;
+
+  border-radius:8px;
+
+  text-decoration:none;
+
+  font-size:12px;
+  font-weight:700;
+}
+
+/* =========================
+   EXECUTORS
+========================= */
+
+.executor-box{
+  margin-bottom:9px;
+
+  padding:14px;
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:10px;
+}
+
+.executor-box h3{
+  margin:0 0 5px;
+
+  font-size:15px;
+}
+
+.executor-box p{
+  margin:0;
+}
+
+.executor-box a{
+  display:inline-block;
+
+  margin-top:9px;
+
+  color:#c5a4ff;
+
+  text-decoration:none;
+
+  font-size:12px;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+  grid-column:1/-1;
+
+  padding:30px 10px;
+
+  color:var(--muted);
+
+  text-align:center;
+
+  font-size:13px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:17px 10px 22px;
+
+  color:#62596d;
+
+  text-align:center;
+
+  font-size:10px;
+}
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media(max-width:360px){
+
+  main{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .script-grid{
+    gap:7px;
+  }
+
+  .script-card{
+    padding:7px;
+  }
+
+  .script-image{
+    height:78px;
+  }
+
+  .script-name{
+    font-size:11px;
+  }
+
+  .script-sub{
+    font-size:9px;
+  }
+
+  .open-btn{
+    font-size:10px;
+    padding:7px 5px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    Noir<span>Script</span>
+  </div>
+
+  <div class="menu-wrap">
+
+    <button
+      class="menu-btn"
+      id="menuBtn"
+      aria-label="Open menu">
+      ⋮
+    </button>
+
+    <nav
+      class="dropdown"
+      id="dropdown">
+
+      <button data-page="home">
+        ⌂ &nbsp; Home
+      </button>
+
+      <button data-page="executors">
+        ▣ &nbsp; Executors
+      </button>
+
+      <button data-page="contact">
+        ✉ &nbsp; Contact Service
+      </button>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<main>
+
+<!-- HOME -->
+
+<section
+  class="page active"
+  id="home">
+
+  <div class="search-wrap">
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search scripts..."
+      autocomplete="off">
+
+  </div>
+
+  <h2 class="section-title">
+    All Scripts
+  </h2>
+
+  <div
+    class="script-grid"
+    id="scriptGrid">
+  </div>
+
+</section>
+
+
+<!-- DETAILS -->
+
+<section
+  class="page"
+  id="details">
+
+  <button
+    class="back-btn"
+    data-page="home">
+    ← Back to Scripts
+  </button>
+
+  <div class="detail-box">
+
+    <h2 id="detailTitle">
+      Script
+    </h2>
+
+    <div class="detail-description">
+
+      <div class="detail-description-title">
+        Description
+      </div>
+
+      <div
+        class="detail-description-text"
+        id="detailDescription">
+        Script description.
+      </div>
+
+    </div>
+
+    <div class="code-label">
+      SCRIPT CODE
+    </div>
+
+    <textarea
+      class="code-area"
+      id="codeArea"
+      spellcheck="false"
+      readonly></textarea>
+
+    <button
+      class="primary-btn"
+      id="copyBtn">
+      Copy Text
+    </button>
+
+    <p
+      class="muted"
+      id="copyMessage">
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- EXECUTORS -->
+
+<section
+  class="page"
+  id="executors">
+
+  <button
+    class="back-btn"
+    data-page="home">
+    ← Back to Home
+  </button>
+
+  <h2 class="section-title">
+    Executors
+  </h2>
+
+  <div class="executor-box">
+
+    <h3>
+      Delta Executor
+    </h3>
+
+    <p class="muted">
+      Best Executor For Roblox
+    </p>
+
+    <a
+      href="https://deltaexploits.gg/delta-executor-android"
+      target="_blank"
+      rel="noopener">
+      Visit Official Website ↗
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section
+  class="page"
+  id="contact">
+
+  <button
+    class="back-btn"
+    data-page="home">
+    ← Back to Home
+  </button>
+
+  <div class="contact-box">
+
+    <div class="contact-icon">
+      ✉
+    </div>
+
+    <h2>
+      Contact Service
+    </h2>
+
+    <p>
+      Need help or have a question about NoirScript?
+      Contact our service through WhatsApp.
+    </p>
+
+    <a
+      class="whatsapp-btn"
+      id="whatsappLink"
+      href="#"
+      target="_blank"
+      rel="noopener">
+      Contact via WhatsApp ↗
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<footer>
+  NoirScript · Script Directory
+</footer>
+
+
+<script>
+
+/* =========================
+   SETTINGS
+========================= */
+
+const WHATSAPP_NUMBER = "6287814634035";
+
+
+
+
+const scripts = [
+
+  {
+    name:"Quantum Onyx Hub",
+
+    image:
+      "https://placehold.co/600x400/1c1628/c6a7ff?text=Quantum+Onyx",
+
+    cardDescription:
+      "Best Roblox script hub.",
+
+    detailDescription:
+      "Quantum Onyx is a feature-rich script hub designed with multiple useful tools and options.",
+
+    code:
+      "-- Add your authorized Quantum Onyx Hub code here."
+  },
+
+  {
+    name:"Phantom Hub",
+
+    image:
+      "https://placehold.co/600x400/1c1628/c6a7ff?text=Phantom+Hub",
+
+    cardDescription:
+      "Clean and powerful Roblox script.",
+
+    detailDescription:
+      "Phantom Hub provides a collection of useful features in one simple interface.",
+
+    code:
+      "-- Add your authorized Phantom Hub code here."
+  },
+
+  {
+    name:"Nova Hub",
+
+    image:
+      "https://placehold.co/600x400/1c1628/c6a7ff?text=Nova+Hub",
+
+    cardDescription:
+      "Simple Roblox script hub.",
+
+    detailDescription:
+      "Nova Hub is a lightweight script hub focused on providing useful features with a simple interface.",
+
+    code:
+      "-- Add your authorized Nova Hub code here."
+  },
+
+  {
+    name:"Shadow Hub",
+
+    image:
+      "https://placehold.co/600x400/1c1628/c6a7ff?text=Shadow+Hub",
+
+    cardDescription:
+      "Useful tools and features.",
+
+    detailDescription:
+      "Shadow Hub combines several useful tools into one script.",
+
+    code:
+      "-- Add your authorized Shadow Hub code here."
+  },
+
+  {
+    name:"Script E",
+
+    image:
+      "https://placehold.co/600x400/1c1628/c6a7ff?text=Script+E",
+
+    cardDescription:
+      "A useful Roblox script.",
+
+    detailDescription:
+      "This is the detailed description for Script E.",
+
+    code:
+      "-- Add your script code here."
+  },
+
+  {
+    name:"Script F",
+
+    image:
+      "https://placehold.co/600x400/1c1628/c6a7ff?text=Script+F",
+
+    cardDescription:
+      "Another Roblox script.",
+
+    detailDescription:
+      "This is the detailed description for Script F.",
+
+    code:
+      "-- Add your script code here."
+  },
+
+  {
+    name:"Script G",
+
+    image:
+      "https://placehold.co/600x400/1c1628/c6a7ff?text=Script+G",
+
+    cardDescription:
+      "Useful script features.",
+
+    detailDescription:
+      "This is the detailed description for Script G.",
+
+    code:
+      "-- Add your script code here."
+  },
+
+  {
+    name:"Script H",
+
+    image:
+      "https://placehold.co/600x400/1c1628/c6a7ff?text=Script+H",
+
+    cardDescription:
+      "New script hub.",
+
+    detailDescription:
+      "This is the detailed description for Script H.",
+
+    code:
+      "-- Add your script code here."
+  }
+
+];
+
+
+
+
+const menuBtn =
+  document.getElementById("menuBtn");
+
+const dropdown =
+  document.getElementById("dropdown");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const scriptGrid =
+  document.getElementById("scriptGrid");
+
+const codeArea =
+  document.getElementById("codeArea");
+
+const detailTitle =
+  document.getElementById("detailTitle");
+
+const detailDescription =
+  document.getElementById("detailDescription");
+
+const copyMessage =
+  document.getElementById("copyMessage");
+
+const whatsappLink =
+  document.getElementById("whatsappLink");
+
+
+
+
+function showPage(pageId){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page=>{
+
+      page.classList.toggle(
+        "active",
+        page.id === pageId
+      );
+
+    });
+
+  dropdown.classList.remove("show");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+menuBtn.addEventListener("click",(event)=>{
+
+  event.stopPropagation();
+
+  dropdown.classList.toggle("show");
+
+});
+
+
+document
+  .querySelectorAll("[data-page]")
+  .forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+      showPage(
+        button.dataset.page
+      );
+
+    });
+
+  });
+
+
+document.addEventListener("click",event=>{
+
+  if(!event.target.closest(".menu-wrap")){
+
+    dropdown.classList.remove("show");
+
+  }
+
+});
+
+
+/* =========================
+   RENDER SCRIPTS
+========================= */
+
+function renderScripts(query=""){
+
+  scriptGrid.innerHTML="";
+
+
+  const filtered =
+    scripts.filter(script=>
+
+      script.name
+        .toLowerCase()
+        .includes(
+          query.toLowerCase()
+        )
+
+    );
+
+
+  if(filtered.length===0){
+
+    scriptGrid.innerHTML =
+      '<div class="empty">No scripts found.</div>';
+
+    return;
+
+  }
+
+
+  filtered.forEach(script=>{
+
+    const card =
+      document.createElement("article");
+
+    card.className =
+      "script-card";
+
+
+    /* IMAGE */
+
+    const imageBox =
+      document.createElement("div");
+
+    imageBox.className =
+      "script-image";
+
+
+    if(script.image){
+
+      const image =
+        document.createElement("img");
+
+      image.src =
+        script.image;
+
+      image.alt =
+        script.name;
+
+      image.loading =
+        "lazy";
+
+      image.onerror = ()=>{
+
+        image.style.display =
+          "none";
+
+        imageBox.innerHTML =
+          '<div class="script-image-placeholder">' +
+          script.name.slice(0,1).toUpperCase() +
+          '</div>';
+
+      };
+
+      imageBox.appendChild(image);
+
+    }else{
+
+      imageBox.innerHTML =
+        '<div class="script-image-placeholder">' +
+        script.name.slice(0,1).toUpperCase() +
+        '</div>';
+
+    }
+
+
+    /* NAME */
+
+    const name =
+      document.createElement("div");
+
+    name.className =
+      "script-name";
+
+    name.textContent =
+      script.name;
+
+
+    /* DESCRIPTION */
+
+    const subtitle =
+      document.createElement("div");
+
+    subtitle.className =
+      "script-sub";
+
+    subtitle.textContent =
+      script.cardDescription;
+
+
+    /* BUTTON */
+
+    const open =
+      document.createElement("button");
+
+    open.className =
+      "open-btn";
+
+    open.textContent =
+      "View Script";
+
+
+    open.addEventListener("click",()=>{
+
+      detailTitle.textContent =
+        script.name;
+
+      detailDescription.textContent =
+        script.detailDescription;
+
+      codeArea.value =
+        script.code;
+
+      copyMessage.textContent="";
+
+      showPage("details");
+
+    });
+
+
+    card.append(
+      imageBox,
+      name,
+      subtitle,
+      open
+    );
+
+
+    scriptGrid.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+searchInput.addEventListener(
+  "input",
+  ()=>{
+
+    renderScripts(
+      searchInput.value.trim()
+    );
+
+  }
+);
+
+
+/* =========================
+   COPY
+========================= */
+
+document
+  .getElementById("copyBtn")
+  .addEventListener(
+    "click",
+    async()=>{
+
+      try{
+
+        await navigator.clipboard.writeText(
+          codeArea.value
+        );
+
+        copyMessage.textContent =
+          "Copied to clipboard!";
+
+      }
+
+      catch(error){
+
+        codeArea.focus();
+
+        codeArea.select();
+
+        const copied =
+          document.execCommand("copy");
+
+        copyMessage.textContent =
+          copied
+            ? "Copied to clipboard!"
+            : "Select the text and copy it manually.";
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+whatsappLink.href =
+  "https://wa.me/" +
+  WHATSAPP_NUMBER;
+
+
+/* =========================
+   START
+========================= */
+
+renderScripts();
+
+</script>
+
+</body>
+</html>
